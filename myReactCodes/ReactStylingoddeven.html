@@ -1,0 +1,50 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+
+<script type="text/babel">
+
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.fnClick = this.fnClick.bind(this);
+            this.state = {  //creating the state variable because i need to change the data as well as also want to reflect it into the browser
+                res: "",  //for storing odd or even
+                colrs: "" //for storing color
+            }
+        }
+
+        fnClick() {
+            let number = Number(this.refs.RefNo.value); //geeting the reference of input tag and data of it
+            //    console.log(number);
+            let result = "ODD"; //by default making it as odd
+            let colr = "green"; //by default making it as green
+            if (number % 2 == 0) {
+                result = "EVEN"; //when number becomes even change it to even
+                colr = "red"; //and also change the color of it from green to red
+            }
+            this.setState({
+                res: result, //update the result in state variable
+                colrs: colr //update the color int state variable
+            })
+        }
+
+        render() {
+            return <div>
+                <p>Number:<input ref="RefNo" /></p>
+                <p><button onClick={this.fnClick}>Click</button></p>
+                <h1 style={{ color: this.state.colrs }}>{this.state.res}</h1>
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>

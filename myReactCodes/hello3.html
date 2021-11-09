@@ -1,0 +1,26 @@
+<script src="babel.js"></script> 
+
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+
+const Hellow=()=>{
+    return <h1>Hello World...</h1>;
+}
+
+ function App(){
+     return <div><Hellow /><Hellow /><Hellow /></div>;
+ }
+
+
+ReactDOM.render(<App />,document.getElementById("root"),function () {
+    console.log("Done placing content inside the container")
+});
+
+</script>

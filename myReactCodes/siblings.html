@@ -1,0 +1,79 @@
+<!-- transfering date from child to child component -->
+
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+
+<script type="text/babel">
+
+    class A extends React.Component {
+
+        constructor() {
+            super();
+            this.name;
+        }
+
+        fnClick() {  //handling the button event
+            this.name = this.refs.name.value; //storing the input text data into this.name
+            { this.props.f(this.name) }  //calling callback fn of App component and passing data
+        }
+
+
+        render() {
+            return <div><h1>A Component: </h1>
+                <p>
+                    Name: <input ref="name" />
+                </p>
+                <button onClick={this.fnClick.bind(this)}>Submit</button>
+            </div>
+        }
+    }
+
+
+    class B extends React.Component {
+
+        render() {
+            return <h1>B component: {this.props.data}</h1> //simpiling printing the data taken from another child class
+
+        }
+    }
+
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {  //creating a state variable to store the data coming from A component
+                name: "" //initializing it with empty string
+            }
+            this.fnGetName = this.fnGetName.bind(this);
+        }
+
+        fnGetName(data) {
+            this.setState({
+                name: data  //setting name with data of A passed by calling the fnGetName
+            })
+        }
+
+        render() {
+            return <div>
+                <h1>App Component</h1>
+                <A f={this.fnGetName} />
+                <B data={this.state.name} />
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>
+
+<!-- 
+1.We cannot simply transfer data directly from child to child
+
+    we first have to transfer data from Child to Parent and then from parent to another child -->

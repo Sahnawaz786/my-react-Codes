@@ -1,0 +1,34 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+<script type="text/babel">
+
+    class App extends React.Component{
+
+        fnAdd(){
+            alert("fnAdd called!");
+        }
+
+        render() {
+            return <div>
+                 <p>
+                   <b>No1:</b><input />    
+                </p>
+                <p>
+                   <b>No2:</b><input />    
+                </p>
+                <button onClick={this.fnAdd}>Add</button>
+                </div>
+        }
+    }
+
+
+    ReactDOM.render(<App />, document.getElementById("root"));
+
+</script>

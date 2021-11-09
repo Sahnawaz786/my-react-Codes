@@ -1,0 +1,85 @@
+<!-- transfering date from child to child component -->
+
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+
+<script type="text/babel">
+
+  let myCntx=React.createContext();  //creating our context globally
+
+
+    class A extends React.Component {
+
+        render() {
+            return <div>
+                <h1>A component</h1>
+                <B />
+                <C />
+            </div>
+        }
+    }
+
+
+    class B extends React.Component {
+
+        render() {
+           return <div>
+                <h1>B component</h1>
+                <D />
+            </div>
+        }
+    }
+
+    class C extends React.Component {
+
+        render() {
+              return <div>
+                <h1>C component</h1>
+                </div>
+        }
+    }
+
+    class D extends React.Component {
+
+        render() {
+                return <div>
+                    <h1>D component</h1>
+                     <myCntx.Consumer>  
+                            {
+                                (data)=>{ //Consumer tells us that pass a function as a child and i will call it with your data
+                                return  <p>{data}</p> //returning it in order to render in the browser
+                                }
+                            }
+                        </myCntx.Consumer>
+                    </div>
+        }
+    }
+
+    class App extends React.Component {
+      
+        constructor(){
+            super();
+            this.name="Sachin";
+        }
+
+        render() {
+            return <div>
+                <h1>App Component</h1>
+                
+                <myCntx.Provider value={this.name}>
+                    <A />
+                </myCntx.Provider>
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>

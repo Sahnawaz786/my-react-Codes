@@ -1,0 +1,225 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<style>
+    .ballon-style {
+        border: 5px solid green !important;
+    }
+
+    .board {
+        width: 500px;
+        height: 400px;
+        border: 3px solid red;
+        position: relative;
+    }
+
+    .ballon {
+        border: 3px solid red;
+        border-radius: 50%;
+        position: absolute;
+        display: inline-block;
+    }
+
+    .arrow {
+        width: 50px;
+        height: 10px;
+        background-color: blue;
+        display: inline-block;
+        position: absolute;
+    }
+</style>
+
+<script type="text/babel">
+
+    class Ballon extends React.Component {
+        render() {
+            const { s, l, t } = this.props;
+            return <div className="ballon" style={{ width: s, height: s, left: l, top: t }}>
+            </div>
+        }
+    }
+
+    class Arrow extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                t: 0,
+                l: 0
+            }
+            window.addEventListener("keyup", (eve) => {
+                // debugger;
+                if (eve.keyCode == 38) {
+                    if (this.state.t != 0)
+                        this.setState({
+                            t: this.state.t - 5
+                        })
+                }
+                if (eve.keyCode == 40) {
+                    if (this.state.t != 390) {
+                        this.setState({
+                            t: this.state.t + 5
+                        })
+                    }
+                }
+                if (eve.keyCode == 13) {
+                    if(!this.props.balInfo){
+                        alert("Pls select a ballon");
+                        return ;
+                    }
+                    const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = this.props.balInfo;
+                
+                if(this.state.t > offsetTop && this.state.t <(offsetTop+offsetHeight)){
+                    let interval=setInterval(() => {
+                        this.setState({
+                            l:this.state.l+1
+                        })
+                        if(this.state.l == (offsetLeft-50)){
+                            clearInterval(interval);
+                            this.props.balInfo.style.display="none";
+                            this.setState({
+                                t:0,
+                                l:0
+                            })
+                            this.props.fnResetBallon();
+                            this.props.fnResetScore();
+                        }
+                    }, 10);
+                }
+                else{
+                    let interval=setInterval(() => {
+                        this.setState({
+                            l:this.state.l+1
+                        })
+                        if(this.state.l == 450){
+                            clearInterval(interval);
+                            this.setState({
+                                t:0,
+                                l:0
+                            })
+                            this.props.fnResetChance();
+                        }
+                    }, 10);
+                }
+                    
+                   
+                }
+               
+            })
+        }
+        render() {
+            const { t, l } = this.state;
+            return <div className="arrow" style={{ top: t, left: l }}>
+            </div>
+        }
+    }
+
+    class Board extends React.Component {
+
+        constructor() {
+            debugger;
+            super();
+            this.state = {
+                balInfo: null
+            }
+            this.fnResetBallon=this.fnResetBallon.bind(this);
+            this.fnResetScore=this.fnResetScore.bind(this);
+            this.fnResetChance=this.fnResetChance.bind(this);
+        }
+
+        fnResetBallon(){
+            this.setState({
+                balInfo:null
+            })
+        }
+        debugger;
+
+        fnResetScore(){
+           this.props.fnResetScore();
+        }
+
+        fnResetChance(){
+          this.props.resetchance();
+        }
+
+        fnBalloclick(eve) {
+            debugger;
+            eve.stopPropagation();  //for stopping event bubbling
+            let targetBallon = document.querySelector('.ballon-style'); //getting weather any ballon is already targeted or not
+            debugger;
+            console.log(targetBallon);
+            if (targetBallon) {
+
+                targetBallon.classList.remove("ballon-style"); //if yes remove the class style from it 
+                console.log(classList);
+                console.log(targetBallon.classList);
+                debugger;
+            }
+            eve.target.classList.add("ballon-style"); //and set that class style in the new selected one
+            this.setState({
+                balInfo: eve.target
+            })
+        }
+
+        render() {
+            // debugger;
+            return <div className="board">
+                <Arrow fnResetScore={this.fnResetScore} fnResetChance={this.fnResetChance} balInfo={this.state.balInfo} fnResetBallon={this.fnResetBallon}/>
+                <div onClick={this.fnBalloclick.bind(this)}>
+                    <Ballon s="70" l="400" t="50" />
+                    <Ballon s="100" l="250" t="150" />
+                    <Ballon s="60" l="360" t="320" />
+                </div>
+            </div>
+        }
+    }
+
+
+    class App extends React.Component {
+
+        constructor(){
+            super();
+            this.state={
+                Score:0,
+                ChanceLeft:1
+            }
+            this.fnResetScore=this.fnResetScore.bind(this);
+            this.ResetChance=this.ResetChance.bind(this);
+        }
+
+        fnResetScore(){
+            
+            this.setState({
+                Score:this.state.Score+1
+            })
+            if(this.state.Score == 3){
+                alert("Game Over!");
+                window.location.reload();
+            }
+        }
+
+        ResetChance(){
+            if(this.state.ChanceLeft == 0){
+                window.location.reload();
+            }
+            this.setState({
+                ChanceLeft:this.state.ChanceLeft-1
+            })
+        }
+
+        render() {
+            return <div>
+                <Board fnResetScore={this.fnResetScore} resetchance={this.ResetChance} />
+                <h1>Score :{this.state.Score}</h1>
+                <h1>Chance Left :{this.state.ChanceLeft}</h1>
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>

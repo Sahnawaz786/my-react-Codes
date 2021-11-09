@@ -1,0 +1,23 @@
+elements contains three parts
+
+
+<h1 id="h1" class="c1">Hello World</h1>
+
+1.element tag
+
+2.attributes lists
+
+3.content
+
+
+React.createElement("h1",{id:"h1",class:"c1"},"Hello World");
+
+
+<div>  div's content is <h1> tag
+
+   <h1>Hello World</h1>
+
+</div>
+
+React.createElement("div",{},React.createElement("h1",{},"Hello World"));
+

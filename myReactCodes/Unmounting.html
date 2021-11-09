@@ -1,0 +1,55 @@
+<script src="babel.js"></script>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+<script type="text/babel">
+
+class UnMount extends React.Component{
+
+    
+    //another lifecycle of unmounting
+    componentWillUnmount(){
+        alert("I am UnMounting")
+    }
+
+    render(){
+        return <h1>Hello World!</h1>
+    }
+}
+
+
+class App extends React.Component{
+
+    constructor(){
+        super();
+        this.state={
+            isMount:true
+        }
+        this.fnUnMount=this.fnUnMount.bind(this);
+    }
+
+    fnUnMount(){
+        this.setState({
+            isMount:false
+        })
+    }
+
+     render(){
+         const {isMount} = this.state;
+         return <div>
+            
+             {isMount && <UnMount />}
+             <button onClick={this.fnUnMount}>UnMount</button>
+            
+             </div>
+        
+     }
+}
+
+
+ReactDOM.render(<App />,document.getElementById("root"));
+
+</script>

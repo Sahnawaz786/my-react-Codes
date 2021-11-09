@@ -1,0 +1,87 @@
+<!-- everything about states in React.Component -->
+
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+
+<script type="text/babel">
+
+
+    class App extends React.Component {
+
+        constructor(){
+            super();
+            console.log("Constructor called");
+            // this.fnAdd=this.fnAdd.bind(this);  //one way of binding the function with "this" as local instances 
+            this.state={  //provided by react people to store multiple property
+                content:"kholi",
+                add:"punjab"
+            }
+        }
+
+        fnAdd(){
+            
+            setTimeout(() => {
+                this.setState({  //method to change the content provided by react people
+                    content:"Dhoni"
+                })
+                console.log(this.state.content);
+            }, 5000);
+
+          
+
+            setTimeout(() => { //method to change the content provided by react people
+                this.setState({
+                    content:"Sachin"
+                })
+                console.log(this.state.content);
+            }, 10000);
+
+            
+        }
+
+        //the times the setstate() method is used that times render method will be recalled so that the updated data should be shown in the browser
+
+        render() {
+            
+            console.log("render called");
+            // debugger;
+            //another way of binding the function with "this";
+            return <div>
+                  <h1>{this.state.content}</h1>
+                   <button onClick={this.fnAdd.bind(this)}>Click</button>
+                </div>
+        }
+    }
+
+    ReactDOM.render(<App />,document.getElementById('root'));
+
+</script>
+
+
+
+<!-- Behind the scene in setState what's happening -->
+
+<!-- setState(data){
+    1.get the state
+
+    this.state={
+        content:"Kholi",
+        add:'punjab'
+    }
+
+    2.update the this.state
+
+    this.state={
+        ...this.state,
+        ...data
+    }
+
+    3.call the render method again
+} -->

@@ -1,0 +1,102 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<style>
+
+.ballon-style{
+    border: 5px solid green !important;
+}
+
+.board{
+    width: 500px;
+    height: 400px;
+    border: 3px solid red;
+    position: relative;
+}
+
+.ballon{
+    border: 3px solid red;
+    border-radius: 50%;
+    position: absolute;
+    display: inline-block;
+}
+
+.arrow{
+    width: 50px;
+    height: 10px;
+    background-color: blue;
+    display: inline-block;
+    position: absolute;
+}
+
+</style>
+
+<script type="text/babel">
+
+    class Ballon extends React.Component {
+        render() {
+            const {s,l,t}=this.props;
+            return <div className="ballon" style={{width:s,height:s,left:l,top:t}}>
+                </div>
+        }
+    }
+
+    class Arrow extends React.Component {
+        constructor(){
+            super();
+            this.state={
+                t:0
+            }
+            window.addEventListener("keyup",(eve)=>{
+               console.log("Key pressed");
+            })
+        }
+        render() {
+            const {t}=this.state;
+            return <div className="arrow" style={{top:t}}>
+                </div>
+        }
+    }
+
+    class Board extends React.Component {
+
+        fnBalloclick(eve){
+            // debugger;
+            eve.stopPropagation();  //for stopping event bubbling
+            let targetBallon=document.querySelector('.ballon-style'); //getting weather any ballon is already targeted or not
+            if(targetBallon){
+                targetBallon.classList.remove("ballon-style"); //if yes remove the class style from it 
+            }
+            eve.target.classList.add("ballon-style"); //and set that class style in the new selected one
+
+        }
+
+        render() {
+            return <div className="board">
+                <Arrow />
+                <div onClick={this.fnBalloclick.bind(this)}>
+                <Ballon s="70" l="400" t="50"/>
+                <Ballon s="100" l="250" t="150"/>
+                <Ballon s="60" l="360" t="320"/>
+                </div>
+                </div>
+        }
+    }
+
+
+    class App extends React.Component {
+        render() {
+            return <div>
+                <Board />
+                </div>
+        }
+    }
+
+    ReactDOM.render(<App />,document.getElementById('root'));
+
+</script>

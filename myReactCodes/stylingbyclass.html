@@ -1,0 +1,53 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<style>
+    .red{
+        color:red;
+    }
+    .green{
+        color: green;
+    }
+</style>
+
+<script type="text/babel">
+
+    class App extends React.Component {
+
+        constructor(){
+            super();
+            this.state={
+                res:"",
+            }
+            this.fnClick=this.fnClick.bind(this);
+        }
+
+        fnClick() {
+            let number = Number(this.refs.RefNo.value);
+            let result = "ODD";
+            if (number % 2 == 0) {
+                result = "EVEN";
+            }
+            this.setState({
+                res: result
+            })
+        }
+
+        render() {
+            const {res}=this.state;
+            return <div>
+                <p>Number:<input ref="RefNo" /></p>
+                <p><button onClick={this.fnClick}>Click</button></p>
+                <h1 className={res=="EVEN" ? "red":"green"}>{res}</h1>
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>

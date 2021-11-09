@@ -1,0 +1,128 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+    class App extends React.Component {
+
+        render() {
+            const data = ["Ronaldo", "Bill-gates", "Elon-Musk", "Warren-Buffet", "Jeff", "larry"];
+
+            const players = [
+                {
+                    name: "Sachin",
+                    runs: 20000
+                },
+
+                {
+                    name: "Dhoni",
+                    runs: 40000
+                }
+            ]
+
+            const objdata = {
+                name: "Sahnawaz",
+                NetWorth: "100B",
+                location: "Dubai",
+                age: 38
+            }
+
+            return <div>
+
+
+                <table border="2px">
+                    <tbody>
+
+                        {
+                            Object.keys(objdata).map((val, index) => {
+                                return <tr key={index}>
+                                    <td>{val}</td>
+                                    <td>{objdata[val]}</td>
+                                </tr>
+                            })
+                        }
+
+                    </tbody>
+
+                </table>
+
+                <ol>
+                    {
+                        data.map((val, index) => {
+                            return <li key={index}>{val}</li>
+                        })
+                    }
+                </ol>
+
+                <ul>
+                    {
+                        data.map((val, index) => {
+                            return <li key={index}>{val}</li>
+                        })
+                    }
+                </ul>
+
+                <select>
+
+                    {
+                        data.map((val, index) => {
+                            return <option key={index}>{val}</option>
+                        })
+                    }
+
+                </select>
+
+                <table border="2px">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {
+
+                            data.map((val, index) => {
+                                return <tr key={index}>
+                                    <td>{val}</td>
+                                </tr>
+                            })
+                        }
+
+                    </tbody>
+
+                </table>
+
+                <table border="2px">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>runs</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {
+                            players.map((obj, index) => {
+                                return <tr key={index}>
+                                    <td>{obj.name}</td>
+                                    <td>{obj.runs}</td>
+                                </tr>
+                            })
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>

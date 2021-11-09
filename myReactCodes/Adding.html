@@ -1,0 +1,61 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+
+<script type="text/babel">
+
+ 
+
+
+    class App extends React.Component {
+
+        constructor(){
+            super();
+            this.fnAdd=this.fnAdd.bind(this);
+        }
+
+        fnAdd(){
+            debugger;
+            // console.log(this.props);
+            // let n1Ref=Number(document.getElementById("n1").value);
+            // let n2Ref=Number(document.getElementById("n2").value);
+            // let sum=n1Ref+n2Ref;
+            // let result=document.getElementById("result");
+            // result.innerText=sum;
+
+            const {n1,n2,result}=this.refs;  //for saving memory we destruct the reqd variables
+
+            let Refn1=n1.value;
+            Refn1=Number(Refn1);
+            let Refn2=n2.value;
+            Refn2=Number(Refn2);
+            console.log(Refn1+Refn2);
+            let res=Refn1+Refn2;
+            result.innerText=res;
+
+        }
+
+        render() {
+            return <div>
+                   <p>
+                     <b>No1</b><input ref="n1" id="n1"/>
+                    </p>
+
+                    <p>
+                      <b>No2</b><input ref="n2" id="n2" />    
+                    </p>
+                     <button onClick={this.fnAdd}>Sum</button>
+                     <h1 ref="result"></h1>
+                </div>
+        }
+    }
+
+    ReactDOM.render(<App />,document.getElementById('root'));
+
+</script>

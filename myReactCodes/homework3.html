@@ -1,0 +1,46 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+
+<script type="text/babel">
+
+
+
+
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.prime = this.prime.bind(this);
+        }
+
+        prime() {
+            const { n1,result } = this.refs;
+
+            let number = Number(n1.value);
+            let res="";
+ 
+        }
+
+
+        render() {
+            return <div>
+                <p>
+                    <b>Name</b><input ref="n1" id="n1" />
+                </p>
+
+                <button onClick={this.prime}>Prime</button>
+                <h1 ref="result"></h1>
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>

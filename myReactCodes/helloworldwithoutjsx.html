@@ -1,0 +1,24 @@
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function App(){
+    const ele=React.createElement("p",{},"Hello World");
+    return ele;
+}
+
+function Vfx() {
+    return <h1 id="id1">Hello World</h1>;
+}
+
+
+ReactDOM.render(<App />,document.getElementById("root"));
+
+</script>

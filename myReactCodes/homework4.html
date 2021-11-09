@@ -1,0 +1,63 @@
+<!-- Checking weather a number is pallindrome or not -->
+
+<script src="babel.js"></script>
+
+<script src="react.development.js"></script>
+
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+
+<script type="text/babel">
+
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.pallindrome = this.pallindrome.bind(this);
+        }
+
+        pallindrome() {
+            const {n1,result,result1} = this.refs;
+
+            let original=n1.value;
+            
+            let reverse=original.split('').reverse().join('');
+
+           let ori= Number(reverse);
+           let dupl= Number(original);
+
+            console.log(typeof(ori));
+            console.log(typeof(dupl));
+ 
+
+            if(ori == dupl){
+                result1.innerText=reverse;
+                result.innerText="Pallindrome";
+            }
+            else{
+                result1.innerText=reverse;
+                result.innerText="Not a pallindrome";
+            }
+        }
+
+
+    
+
+       render() {
+            return <div>
+                <p>
+                    <b>Name</b><input ref="n1" id="n1" />
+                </p>
+
+                <button onClick={this.pallindrome}>Check</button>
+                <h1 ref="result1"></h1>
+                <h1 ref="result"></h1>
+            </div>
+        }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+</script>

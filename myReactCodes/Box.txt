@@ -1,0 +1,26 @@
+Some deep learning about the components
+
+
+here data acts as an objects where  n is a key and value pair
+
+function App(data){
+  return <div>data.n</div>;
+}
+
+
+<App n="1"/>   //we will pass samething to every function so that we dont have to write again and again and everytime n gets updated/overwritten
+
+
+data={
+    n:1
+}
+
+
+Note: 
+
+  we can pass the attribute in the element
+
+  so we have pass it 
+
+
+In pre defined tags we have some restrictions and only limited attribute but in user defined tags we can do anything without any problem...
